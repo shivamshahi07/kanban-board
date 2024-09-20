@@ -1,55 +1,75 @@
-# Kanban task management web app solution
+## Kanban Board
 
-This is a solution to the [Kanban task management web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+This is a simple Kanban board application built using React and Next.js. It allows you to create and manage tasks and boards, and provides a responsive UI for viewing and editing tasks.
 
-## Table of contents
+## Features
 
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-  - [Built with](#built-with)
-- [Author](#author)
+- Create and manage tasks and boards
+- View tasks in a Kanban board
+- Edit tasks and boards
+- Sort tasks by priority and due date
+- Dark mode support
 
-## Overview
+## Getting Started
 
-### The challenge
+To get started, follow these steps:
 
-Users should be able to:
+1. Clone the repository:
 
-- View the optimal layout for the app depending on their device's screen size
-- See hover states for all interactive elements on the page
-- Create, read, update, and delete boards and tasks
-- Receive form validations when trying to create/edit boards and tasks
-- Mark subtasks as complete and move tasks between columns
-- Hide/show the board sidebar
-- Toggle the theme between light/dark modes
-- **Bonus**: Allow users to drag and drop tasks to change their status and re-order them in a column
-- **Bonus**: Keep track of any changes, even after refreshing the browser (`localStorage` could be used for this if you're not building out a full-stack app)
-- **Bonus**: Build this project as a full-stack application
+```bash
+git clone git@github.com:shivamshahi07/kanban-board.git
+```
 
-### Screenshot
+2. Navigate to the project directory:
 
-![](./screenshots/desktop.png)
+```bash
+cd kanban-web-app-nextjs
+```
 
-### Links
+3. Install the dependencies:
 
-- Live Site URL: [Kanban webapp](https://kanban-sasanqc.vercel.app/)
+```bash
+npm install
+```
 
-### Built with
+4. Create a .env file in the root directory and add the following content:
 
-- Typescript
-- [Next.js](https://nextjs.org/) - React framework
-- [React](https://reactjs.org/) - JS library
-- MongoDB and mongoose library to persist data on server side.
-- Tailwind CSS for styling
-- Redux toolkit for UI state management
-- react-query for remote state management
-- react-beautiful-dnd for drag and drop
+```
+DB="mongodb+srv://your-username:your-password@cluster0.xxxx.mongodb.net/kanban?retryWrites=true&w=majority&appName=Cluster0"
+```
 
-## Author
+Replace "your-username" and "your-password" with your MongoDB credentials.
 
-- Github - [@sasanqc](https://github.com/sasanqc/)
-- Frontend Mentor - [@sasanqc](https://www.frontendmentor.io/profile/sasanqc)
-- Twitter - [@sasanqc](https://www.twitter.com/sasanqc)
-- Linkedin - [@sasanqc](https://www.linkedin.com/in/sasanqc)
+5. Start the development server:
+
+```bash
+npm run dev
+```
+
+6. Open http://localhost:3000 in your browser to view the application.
+
+    You should see a welcome message and a button to create a new board.
+
+7. Click the "Create New Board" button to create a new board.
+
+    You should see a form to enter the name of the board and a button to create the board.
+
+8. Enter a name for the board and click the "Create" button.
+
+    You should see the new board in the list of boards.
+
+9. Click on the board name to view the tasks in the board.
+
+    You should see a list of tasks in the board.
+
+10. Click on a task to view the details of the task.
+
+    You should see the task details, including the title, description, priority, due date, and subtasks.
+
+11. Click on the "Edit Task" button to edit the task.
+
+    You should see a form to edit the task details.
+
+12. Enter the updated details and click the "Save Changes" button to save the changes.
+
+    You should see the updated task details.

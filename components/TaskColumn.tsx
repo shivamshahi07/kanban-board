@@ -1,6 +1,8 @@
 import React, { useState } from "react"; // Added useState
 import Task from "@/model/Task";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import PriorityBadge from "./prioritybadge";
+import { Calendar } from "lucide-react";
 
 // Added SortOption type
 type SortOption = "priority" | "dueDate" | "none";
@@ -96,10 +98,10 @@ const TaskColumn: React.FC<TaskColumnProps> = ({ col, onClickedTask, id }) => {
                         <h3 className="mb-2">{task.title}</h3>
                         {/* Added priority and due date display */}
                         <p className="text-sm text-gray3 font-bold">
-                          Priority: {task.priority}
+                          <PriorityBadge  priority={task.priority} />
                         </p>
-                        <p className="text-sm text-gray3 font-bold">
-                          Due: {task.duedate}
+                        <p className="text-sm text-gray3 font-bold flex mt-2 items-center justify-center">
+                         <Calendar /> Due: {task.duedate||'No due date'}
                         </p>
                       </section>
                     </li>

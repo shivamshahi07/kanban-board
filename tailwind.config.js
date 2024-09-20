@@ -50,8 +50,8 @@ module.exports = {
       jakarta: "'Plus Jakarta Sans', sans serif",
     },
     colors: {
-      primary1: "#A8A4FF",
-      primary2: "#635FC7",
+      primary1: "#5fa3e3",
+      primary2: "#4f92d1",
       secondary1: "rgba(99, 95, 199, 0.1)",
       secondary2: "rgba(99, 95, 199, 0.25)",
       destructive1: "#FF9898",
