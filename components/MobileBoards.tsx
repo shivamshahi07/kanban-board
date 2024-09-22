@@ -3,7 +3,7 @@ import BoardsList from "./BoardsList";
 import ToggleTheme from "./ToggleTheme";
 
 const MobileBoards = () => {
-  const boards = useBoard({ boards: [] });
+  const boards = useBoard();
   return (
     <div className="bg-white dark:bg-black1 rounded-md pt-2 mx-7">
       <BoardsList boards={boards} />

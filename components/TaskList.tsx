@@ -6,11 +6,9 @@ import Task from "@/model/Task";
 
 interface TaskListProps {
     tasks: Task[];
-    onEditTask: (taskIndex: number) => void;
-    onDeleteTask: (taskIndex: number) => void;
   }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, onEditTask, onDeleteTask }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
   const dispatch = useDispatch();
   const activeBoard = useSelector((state: any) => state.ui.activeBoard);
   const { boards, isLoading, error } = useBoard();

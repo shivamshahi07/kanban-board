@@ -377,8 +377,7 @@ const Home: React.FC = () => {
             {isListView ? (
                 <TaskList
                   tasks={boards[activeBoard]?.columns.flatMap(col => col.tasks) || []}
-                  onEditTask={(taskIndex: number) => handleEditTask(taskIndex)}
-  onDeleteTask={(taskIndex: number) => handleDeleteTask(taskIndex)}
+                  
                 />
               ) : (
                 <Tasks onDragEnd={handleDragEnd} />
