@@ -5,6 +5,8 @@ import Select from "./UI/Select";
 import TextInput from "./UI/TextInput";
 import Task from "@/model/Task";
 import { setPriority } from "os";
+import { useDispatch } from "react-redux";
+import { setActiveModal } from "@/store/uiSlice";
 
 interface CreateTaskProps {
   task?: Task;
@@ -26,12 +28,11 @@ const CreateTask: React.FC<CreateTaskProps> = ({
   // const [subtasks, setSubtasks] = useState(task?.subtasks || initialSubTasks);
   const [title, setTitle] = useState(task?.title || "");
   const [duedate, setduedate] = useState(task?.duedate || "");
-  const [priority, setpriority] = useState(task?.priority || "");
+  const [priority, setpriority] = useState(task?.priority || "Low");
+  const dispatch = useDispatch();
 
   const [description, setDescription] = useState(task?.description || "");
-  const [status, setStatus] = useState(
-    columns.find((el) => el.value === task?.status)?.value || columns[0].value
-  );
+  const [status, setStatus] = useState(columns[0].value);
   const inputRef = useRef<ImperativeInput>(null);
   const columnsRef = useRef<Array<ImperativeInput | null>>([]);
   const onChangedTitle = (e: React.FormEvent<HTMLInputElement>) => {
@@ -54,25 +55,22 @@ const CreateTask: React.FC<CreateTaskProps> = ({
   // };
 
   const handleSubmitTask = () => {
-    if (title?.trim().length === 0) {
+    if (title.trim().length === 0) {
       inputRef.current?.error("Can't be empty");
       return;
     }
-    //validate subtasks title
-    // for (let i = 0; i < subtasks.length; i++) {
-    //   const element = subtasks[i];
-    //   if (element.title.length === 0) {
-    //     columnsRef.current[i]?.error("Can't be empty");
-    //     return;
-    //   }
-    // }
-    onCreateTask({
+
+    const newTask: Task = {
       title,
       description,
       status,
       priority,
       duedate,
-    });
+    };
+
+    onCreateTask(newTask);
+    dispatch(setActiveModal(undefined));
+    
   };
 
   return (

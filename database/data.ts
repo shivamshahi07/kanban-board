@@ -1,27 +1,41 @@
-import mongoose from "mongoose";
-const { Schema, models } = mongoose;
-const dataSchema = new Schema({
-  boards: [
-    {
-      name: String,
-      columns: [
-        {
-          name: String,
-          tasks: [
-            {
-              title: String,
-              description: String,
-              status: String,
-              priority: String,
-              duedate: String,
-              // subtasks: [{ title: String, isCompleted: Boolean }],
-            },
-          ],
-        },
-      ],
-    },
-  ],
+import mongoose from 'mongoose';
+
+const SubtaskSchema = new mongoose.Schema({
+  title: String,
+  isCompleted: Boolean,
 });
-const BoardsModel =
-  models.BoardsModel || mongoose.model("BoardsModel", dataSchema);
-export default BoardsModel;
+
+const TaskSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  status: String,
+  priority: String,
+  duedate: String,
+});
+
+const ColumnSchema = new mongoose.Schema({
+  name: String,
+  tasks: [TaskSchema],
+});
+
+const BoardSchema = new mongoose.Schema({
+  name: String,
+  columns: [ColumnSchema],
+});
+
+const UserSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: [true, 'Please provide an email'],
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: [true, 'Please provide a password'],
+  },
+  boards: [BoardSchema],
+});
+
+const UserModel = mongoose.models.User || mongoose.model('User', UserSchema);
+
+export default UserModel;

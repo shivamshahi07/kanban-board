@@ -12,16 +12,22 @@ const Tasks: React.FC<{
 }> = ({ onDragEnd }) => {
   const dispatch = useDispatch();
   const activeBoard = useSelector(selectBoard);
-  const board = useBoard({ boards: [] })?.[activeBoard];
+  const { boards, isLoading, error } = useBoard();
+  const board = boards && boards.length > activeBoard ? boards[activeBoard] : null;
+  console.log("Tasks component - Active board:", board); 
   const onClickedTask = (colIndex: number, taskIndex: number) => {
     dispatch(setActiveModal(ModalEnum.VIEW_TASK));
     dispatch(setOpenedTask({ taskIndex, colIndex }));
   };
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading boards</div>;
+  if (!board) return <div>No board found</div>;
+
 
   return (
-    <div className="flex-1 h-full  p-6 flex gap-6 overflow-auto flex-nowrap bg-white2 dark:bg-black3 border-t border-t-gray1 dark:border-t-black1">
+    <div className="flex-1 h-full  p-10 flex gap-6 overflow-auto flex-nowrap bg-white2 dark:bg-black3 border-t border-t-gray1 dark:border-t-black1">
       <DragDropContext onDragEnd={onDragEnd}>
-        {board?.columns?.map(
+        {board.columns?.map(
           (col: { name: string; tasks: Task[] }, index: number) => (
             <TaskColumn
               col={col}
@@ -35,7 +41,7 @@ const Tasks: React.FC<{
         )}
       </DragDropContext>
 
-      {board?.columns?.length > 0 && (
+      {/* {board?.columns?.length > 0 && (
         <div className="bg-gray1 dark:bg-black2 text-center mt-10 flex rounded-md">
           <h1
             onClick={() => dispatch(setActiveModal(ModalEnum.EDIT_BOARD))}
@@ -44,7 +50,7 @@ const Tasks: React.FC<{
             + New Column
           </h1>
         </div>
-      )}
+      )} */}
       {board?.columns?.length === 0 && (
         <div className="text-center relative my-auto w-full">
           <h2 className="text-2xl text-gray3 mb-8 font-bold">

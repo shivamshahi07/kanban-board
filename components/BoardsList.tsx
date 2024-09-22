@@ -8,13 +8,16 @@ import ModalEnum from "@/model/ModalEnum";
 const BoardsList: React.FC<BoardListProps> = ({ boards }) => {
   const activeBoard = useSelector(selectBoard);
   const dispatch = useDispatch();
+  console.log("BoardsList boards:", boards);
+  const boardsArray = Array.isArray(boards) ? boards : boards.boards || [];
+
   return (
     <div>
       <h4 className="text-gray3 pl-8 mb-5 mt-4">
-        all boards ({boards.length})
+        all boards ({boardsArray.length})
       </h4>
       <ul>
-        {boards.map((board, i) => (
+      {boardsArray.map((board, i) => (
           <li
             key={i}
             className={`flex pl-8 py-4 gap-x-4 mr-6 items-center   rounded-r-full cursor-pointer animate-opacity ${

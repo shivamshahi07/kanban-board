@@ -5,7 +5,7 @@ import PriorityBadge from "./prioritybadge";
 import { Calendar } from "lucide-react";
 
 // Added SortOption type
-type SortOption = "priority" | "dueDate" | "none";
+type SortOption = "priority" | "duedate" | "none";
 
 interface TaskColumnProps {
   col: { name: string; tasks: Task[] };
@@ -33,7 +33,7 @@ const TaskColumn: React.FC<TaskColumnProps> = ({ col, onClickedTask, id }) => {
       return [...tasks].sort((a, b) => 
         priorityOrder[b.priority as keyof typeof priorityOrder] - priorityOrder[a.priority as keyof typeof priorityOrder]
       );
-    } else if (sortBy === "dueDate") {
+    } else if (sortBy === "duedate") {
       return [...tasks].sort(
         (a, b) => new Date(a.duedate).getTime() - new Date(b.duedate).getTime()
       );
@@ -43,6 +43,7 @@ const TaskColumn: React.FC<TaskColumnProps> = ({ col, onClickedTask, id }) => {
 
   // Sort the tasks
   const sortedTasks = sortTasks(col.tasks);
+  console.log("TaskColumn - sortedTasks:", sortedTasks);
 
   return (
     <div className="w-[280px] shrink-0 h-full">

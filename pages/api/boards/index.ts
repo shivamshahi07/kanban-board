@@ -1,34 +1,43 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-
-import Board from "@/model/Board";
-import { getData } from "@/utils/boards-fs";
-import BoardsModel from "@/database/data";
+import UserModel from "@/database/data";
 import connectMongo from "@/database/connectMongo";
+import { authMiddleware } from "@/middleware/auth-middleware";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log('Connecting to MongoDB...');
+  await connectMongo();
+  console.log('Connected to MongoDB');
+
+  const userId = (req as any).userId;
+
   try {
-    await connectMongo();
-    const data = getData();
-    let docs = await BoardsModel.find();
-    if (docs.length === 0) {
-      await BoardsModel.create(data);
-      docs = data.boards;
-    }
-
     if (req.method === "GET") {
-      res.status(200).json(docs[0]);
+      console.log('Fetching boards for user:', userId);
+      const user = await UserModel.findById(userId);
+      if (!user) {
+        console.log('User not found');
+        return res.status(404).json({ message: 'User not found' });
+      }
+      console.log('Boards fetched successfully');
+      res.status(200).json({ boards: user.boards });
     }
 
     if (req.method === "POST") {
-      docs[0].boards.push(req.body);
-      await docs[0].save();
+      console.log('Creating new board for user:', userId);
+      const user = await UserModel.findById(userId);
+      if (!user) {
+        console.log('User not found');
+        return res.status(404).json({ message: 'User not found' });
+      }
+      user.boards.push(req.body);
+      await user.save();
+      console.log('New board created successfully');
       res.status(201).json(req.body);
     }
   } catch (error) {
-    res.status(500).json({});
+    console.error('Error in boards API:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 }
+
+export default authMiddleware(handler);

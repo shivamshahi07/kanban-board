@@ -1,3 +1,4 @@
+import Board from "@/model/Board";
 import { deleteBoardApi } from "@/services/apiBoards";
 import { setActiveBoard, setActiveModal } from "@/store/uiSlice";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -11,9 +12,18 @@ export const useDeleteBoard = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["boards"] });
       dispatch(setActiveModal(undefined));
-      dispatch(setActiveBoard(0));
+      const data = queryClient.getQueryData(["boards"]) as Board[] | undefined;
+      if (data && data.length > 0) {
+        dispatch(setActiveBoard(0));
+      } else {
+        // Handle case when no boards are left
+        dispatch(setActiveBoard(-1)); // or any other appropriate action
+      }
     },
-    onError: () => {},
+    onError: (error) => {
+      console.error('Error deleting board:', error);
+      // Handle error (e.g., show error message to user)
+    },
   });
   return { isDeleting, deleteBoard };
 };

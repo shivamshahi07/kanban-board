@@ -7,11 +7,11 @@ import { useDispatch } from "react-redux";
 import { selectSidebar, toggleSidebar } from "@/store/uiSlice";
 import { useSelector } from "react-redux";
 const Sidebar = () => {
-  const boards = useBoard({ boards: [] });
+  const { boards, isLoading, error } = useBoard();
   const dispatch = useDispatch();
   const sidebarIsOpen = useSelector(selectSidebar);
   return (
-    <div className="w-[260px]  md:w-[300px] border-r border-r-gray1  dark:border-r-black1 relative  hidden sm:inline-block ">
+    <div className="w-[260px]  md:w-[300px]  relative  hidden sm:inline-block ">
       <BoardsList boards={boards} />
       <div className="absolute bottom-12 w-full px-4 space-y-4">
         <ToggleTheme />

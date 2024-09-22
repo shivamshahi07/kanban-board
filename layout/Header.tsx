@@ -10,8 +10,12 @@ import { selectBoard, setActiveModal } from "@/store/uiSlice";
 import ModalEnum from "@/model/ModalEnum";
 import { useQuery } from "@tanstack/react-query";
 import Board from "@/model/Board";
-import { Kanban, Sparkles } from "lucide-react";
-const Header = () => {
+import { Kanban, Sparkles, Table2, Table2Icon } from "lucide-react";
+interface HeaderProps {
+  isListView: boolean;
+  toggleView: () => void;
+}
+const Header: React.FC<HeaderProps> = ({ isListView, toggleView }) => {
   const dispatch = useDispatch();
   const { data } = useQuery<{ boards: Board[] }>({ queryKey: ["boards"] });
   const activeBoard = useSelector(selectBoard);
@@ -22,22 +26,39 @@ const Header = () => {
     <div className="flex  items-center justify-between  ">
       {/* Desktop Header */}
       <div className="sm:flex  items-center justify-between  w-full hidden">
-        <div className="px-8 py-8  border-r border-r-gray1 dark:border-r-black1 w-[260px] md:w-[300px] ">
+        <div className="px-8 py-8   w-[260px] md:w-[300px] ">
           {/* <LogoDarkIcon className="dark:hidden " />
           <LogoLightIcon className="dark:block hidden" /> */}
           <div className="text-primary1 text-3xl font-bold tracking-wide flex items-center ">
-          <Kanban /><span>Kanban Board</span>
-            </div>
+            <Kanban />
+            <span>Kanban Board</span>
+          </div>
         </div>
+        <button
+          onClick={toggleView}
+          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+        >
+          {isListView ? (
+            <span className="flex items-center hover:text-secondary1">
+              <Kanban /> Switch to Board View
+            </span>
+          ) : (
+            <span className="flex items-center hover:text-secondary2">
+              <Table2Icon /> Switch to List View
+            </span>
+          )}
+        </button>
         <div className="px-7  flex flex-1 items-center justify-between  ">
-          <h1 className="text-2xl md:text-3xl flex items-center">Customize Your Kanban Board <Sparkles className="text-primary1" /></h1>
+          <h1 className="text-2xl md:text-3xl flex items-center">
+           {isListView ? "Observe Tasks through List View" : "Customize Your Kanban Board"} <Sparkles className="text-primary1" />
+          </h1>
           <div className="flex items-center gap-6">
             <Button
               label="+ Add New Task"
               type="primary large"
               disabled={isDisables}
               onClick={() => dispatch(setActiveModal(ModalEnum.CREATE_TASK))}
-              />
+            />
             <Dropdown
               disable={data?.boards.length === 0}
               items={[

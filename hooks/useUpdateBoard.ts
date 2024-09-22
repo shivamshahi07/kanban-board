@@ -12,12 +12,16 @@ export const useUpdateBoard = () => {
   const { mutate: updateBoard, isLoading: isUpdating } = useMutation({
     mutationFn: ({ id, board }: { id: string; board: Board }) =>
       updateBoardApi(id, board),
-    onSuccess: () => {
+    onSuccess: (updatedBoard) => {
       queryClient.invalidateQueries({ queryKey: ["boards"] });
       //do not close modal if viewing task.
       if (activeModal !== ModalEnum.VIEW_TASK) {
         dispatch(setActiveModal(undefined));
       }
+    },
+    onError: (error) => {
+      console.error('Error updating board:', error);
+      // Handle error (e.g., show error message to user)
     },
   });
   return { isUpdating, updateBoard };

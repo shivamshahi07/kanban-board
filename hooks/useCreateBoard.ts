@@ -9,12 +9,14 @@ export const useCreateBoard = () => {
   const queryClient = useQueryClient();
   const { mutate: createBoard, isLoading: isCreating } = useMutation({
     mutationFn: createBoardApi,
-    onSuccess: async () => {
+    onSuccess: async (newBoard) => {
       await queryClient.invalidateQueries({
         queryKey: ["boards"],
       });
-      const data = queryClient.getQueryData(["boards"]);
-      dispatch(setActiveBoard((data as { boards: Board[] }).boards.length - 1));
+      const data = queryClient.getQueryData(["boards"]) as Board[] | undefined;
+      if (data) {
+        dispatch(setActiveBoard(data.length - 1));
+      }
       dispatch(setActiveModal(undefined));
     },
   });
