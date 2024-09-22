@@ -46,6 +46,8 @@ import {
 } from "@/store/uiSlice";
 import { createTaskApi, deleteTaskApi, moveTaskApi, updateBoardApi, updateTaskApi } from "@/services/apiBoards";
 import { QueryClient,useQueryClient } from "@tanstack/react-query";
+import Footer from "@/components/Footer";
+import Link from "next/link";
 const Home: React.FC = () => {
   const { boards, isLoading, error } = useBoard();
   const queryClient = useQueryClient();
@@ -362,7 +364,7 @@ const Home: React.FC = () => {
       <Head>
         <title>Kanban Application</title>
       </Head>
-      <main className="text-black dark:text-white bg-white dark:bg-black2 h-screen flex">
+      <main className="text-black  dark:text-white bg-white dark:bg-black2 h-screen flex">
         <div className="flex flex-col overflow-hidden w-full">
         <Header isListView={isListView} toggleView={toggleView} />
           <div
@@ -509,6 +511,32 @@ const Home: React.FC = () => {
           </Modal>
         )}
       </main>
+      <div className="">
+      <div className="">
+        <div className="w-screen">
+          <hr />
+        </div>
+        <div className="mb-8 mt-4 ml-8 mr-8 flex-col sm:flex-row flex space-y-4 sm:space-y-0   items-center sm:justify-between ">
+          <div className="text-sm text-primary1 tracking-wide sm:text-center dark:text-neutral-500">
+            © 2024 Shivam Shahi.All rights reserved.
+          </div>
+          <div className="flex items-center  text-primary1 space-x-10">
+            <Link
+              href="https://github.com/shivamshahi07 "
+              className="dark:hover:text-neutral-300 hover:text-neutral-700 "
+            >
+              Github
+            </Link>
+            <Link
+              href="https://twitter.com/Shivamshahi77"
+              className="dark:hover:text-neutral-300 hover:text-neutral-700"
+            >
+              Twitter/X
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
     </>
   );
 };
