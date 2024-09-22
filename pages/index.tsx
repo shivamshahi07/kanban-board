@@ -513,7 +513,7 @@ const Home: React.FC = () => {
         )}
       </main>
       <div className="">
-      <div className="">
+      <div className="dark:bg-black1 ">
         <div className="w-screen">
           <hr />
         </div>
@@ -529,10 +529,10 @@ const Home: React.FC = () => {
               Github
             </Link>
             <Link
-              href="https://twitter.com/Shivamshahi77"
+              href="https://shivamshahi.vercel.app/"
               className="dark:hover:text-neutral-300 hover:text-neutral-700"
             >
-              Twitter/X
+              Portfolio
             </Link>
           </div>
         </div>
