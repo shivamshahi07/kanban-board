@@ -11,16 +11,19 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const sidebarIsOpen = useSelector(selectSidebar);
   return (
-    <div className="w-[260px]  md:w-[300px]  relative  hidden sm:inline-block ">
+    <div className="w-[260px]  md:w-[300px]  fixed  hidden sm:inline-block ">
       <BoardsList boards={boards} />
-      <div className="absolute bottom-12 w-full px-4 space-y-4">
+      <div className=" bottom-12 w-full px-8 space-y-4">
+        <div className="mt-10">
+
         <ToggleTheme />
+        </div>
         <div
-          className=" text-gray3 flex items-center gap-x-4 mx-auto  cursor-pointer"
+          className=" text-gray3 flex items-center gap-x-4 mx-auto ml-10  cursor-pointer hover:text-opacity-20"
           onClick={() => dispatch(toggleSidebar())}
         >
-          <HideIcon />
-          <h3 className="">Hide Sidebar</h3>
+          <HideIcon className="mt-20"/>
+          <h3 className="mt-20">Hide Sidebar</h3>
         </div>
       </div>
       {!sidebarIsOpen && (

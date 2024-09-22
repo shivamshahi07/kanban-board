@@ -38,7 +38,7 @@ const BoardsList: React.FC<BoardListProps> = ({ boards }) => {
         ))}
 
         <li
-          className=" flex pl-8 py-4 gap-x-4 mr-6 items-center text-primary2  rounded-r-full cursor-pointer"
+          className=" flex pl-8 py-4 gap-x-4 mr-6 items-center text-primary2  rounded-r-full cursor-pointer hover:text-primary1"
           onClick={() => dispatch(setActiveModal(ModalEnum.CREATE_BOARD))}
         >
           <span>

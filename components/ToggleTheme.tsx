@@ -16,7 +16,7 @@ const ToggleTheme = () => {
   }, []);
 
   return (
-    <div className="bg-white2 dark:bg-black3 w-full flex items-center  py-4 justify-center rounded-md gap-x-6">
+    <div className="w-full flex items-center  py-4 justify-center rounded-md gap-x-6">
       <LightThemeIcon />
       <label className="relative inline-flex items-center cursor-pointer">
         <input

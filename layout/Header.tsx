@@ -39,11 +39,11 @@ const Header: React.FC<HeaderProps> = ({ isListView, toggleView }) => {
           className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
         >
           {isListView ? (
-            <span className="flex items-center hover:text-secondary1">
+            <span className="flex items-center hover:text-secondary1 text-primary1">
               <Kanban /> Switch to Board View
             </span>
           ) : (
-            <span className="flex items-center hover:text-secondary2">
+            <span className="flex items-center hover:text-secondary2 text-primary1">
               <Table2Icon /> Switch to List View
             </span>
           )}

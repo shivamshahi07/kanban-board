@@ -368,14 +368,15 @@ const Home: React.FC = () => {
         <div className="flex flex-col overflow-hidden w-full">
         <Header isListView={isListView} toggleView={toggleView} />
           <div
-            className={`app-container  ${
+            className={`app-container   ${
               sidebarIsOpen ? "app-container--visible" : "app-container--hidden"
             }`}
           >
+
             
             <Sidebar />
             
-            <div className=" mx-auto">
+            <div className=" ml-72">
             {isListView ? (
                 <TaskList
                   tasks={boards[activeBoard]?.columns.flatMap(col => col.tasks) || []}
